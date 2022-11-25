@@ -1,0 +1,49 @@
+Proyecto Final
+
+=================== SERVIDOR ===================
+
+Paso 1: Primero se debe crear la carpeta donde se van a guardar los datos del servidor.
+    - sudo mkdir -p /data/docker-volumes
+
+Paso 2: levantar el contenedor con el servidor con el docker-compose.yml
+    - docker-compose up -d
+
+Paso 3: Obtener la direccion IP del servidor.
+    - ip a
+    - IP = 10.70.12.247
+
+Paso 4: Entrar al servidor.
+    - docker exec -it server-nfs bash
+
+
+=================== CLIENTE 1 ===================
+
+Paso 1: Primero levantar el contenedor ubuntu para el cliente.
+    - docker run -it --name cliente-uno --privileged=true ubuntu:latest /bin/bash
+
+Paso 2: instalar el modulo del kernel de linux para un cliente nfs.
+    - apt update
+    - apt install nfs-kernel-server
+
+Paso 3: Crear la ruta donde se quiere montar el nfs del cliente.
+    - cd home
+    - mkdir nfs-clienteOne
+
+Paso 4: Realizar el montaje con la ruta creada y conectarlo al servidor nfs.
+    - mount -v -o vers=4,loud 10.70.12.247:/ /home/nfs-clienteOne
+
+=================== CLIENTE 2 ===================
+
+Paso 1: Primero levantar el contenedor ubuntu para el cliente.
+    - docker run -it --name cliente-dos --privileged=true ubuntu:latest /bin/bash
+
+Paso 2: instalar el modulo del kernel de linux para un cliente nfs.
+    - apt update
+    - apt install nfs-kernel-server
+
+Paso 3: Crear la ruta donde se quiere montar el nfs del cliente.
+    - cd home/
+    - mkdir nfs-clienteTwo
+
+Paso 4: Realizar el montaje con la ruta creada y conectarlo al servidor nfs.
+    - mount -v -o vers=4,loud 10.70.12.247:/ /home/nfs-clienteTwo

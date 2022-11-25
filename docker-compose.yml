@@ -1,0 +1,20 @@
+version: '3.1'
+
+services:
+
+  server:
+    container_name: server-nfs
+    image: itsthenetwork/nfs-server-alpine:latest
+    privileged: true
+    ports:
+      - 2049:2049
+    environment:
+      SHARED_DIRECTORY: /nfsshare
+    volumes:
+      - /data/docker-volumes:/nfsshare
+    
+    
+      
+    
+  
+
